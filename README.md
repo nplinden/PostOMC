@@ -1,1 +1,1 @@
-A class for reading OpenMC depletion result files.
+A class for reading OpenMC result files.

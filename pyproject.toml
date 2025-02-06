@@ -1,0 +1,23 @@
+[project]
+name = "postdepletion"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Nicolas Linden", email = "nicolas@nlinden.com" }
+]
+requires-python = ">=3.11.4"
+dependencies = [
+    "h5py>=3.12.1",
+    "numpy>=2.2.2",
+    "pandas>=2.2.3",
+    "pint>=0.24.4",
+    "uncertainties>=3.2.2",
+]
+
+[project.scripts]
+postdepletion = "postdepletion:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

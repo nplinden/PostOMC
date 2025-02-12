@@ -296,7 +296,7 @@ class DepletionResults:
         self,
         unit: str = "atoms",
         time_unit: str = "d",
-        multiindex: bool = True,
+        multiindex: bool = False,
         squeeze: bool = True,
     ) -> Union[dict[int, pd.DataFrame], pd.DataFrame]:
         """Buiding an atom number dataframe for each material in the depletion problem.
@@ -309,7 +309,7 @@ class DepletionResults:
             time_unit (str): The unit in which the time should be expressed. (default: "d")
             multiindex (bool): If False, the dataframe will have a nuclide names as indices.
                                If True, a pd.MultiIndex will be used using a Z A I hierarchy.
-                               (default: True)
+                               (default: False)
             squeeze (bool): If True and the return dictionnary is of length 1, the method
                             will instead return the only dataframe in the dictionnary.
                             (default: True)
@@ -352,7 +352,7 @@ class DepletionResults:
         self,
         unit: str = "kg",
         time_unit: str = "d",
-        multiindex: bool = True,
+        multiindex: bool = False,
         squeeze: bool = True,
     ) -> Union[dict[int, pd.DataFrame], pd.DataFrame]:
         """Buiding an atom concentration dataframe for each material in the depletion problem.
@@ -363,7 +363,7 @@ class DepletionResults:
                         either unit are valid values for this argument. (default: "kg").
             time_unit (str): The unit in which the time should be expressed. (default: "d")
             multiindex (bool): If False, the dataframe will have a nuclide names as indices. If True,
-                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: True)
+                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: False)
             squeeze (bool): If True and the return dictionnary is of length 1, the method will instead return the only
                             dataframe in the dictionnary. (default: True)
 
@@ -410,7 +410,7 @@ class DepletionResults:
         self,
         unit: str = "Bq",
         time_unit: str = "d",
-        multiindex: bool = True,
+        multiindex: bool = False,
         squeeze: bool = True,
     ) -> Union[dict[int, pd.DataFrame], pd.DataFrame]:
         """Buiding an atom activity dataframe for each material in the depletion problem.
@@ -421,7 +421,7 @@ class DepletionResults:
                         either unit are valid values for this argument. (default: "Bq")
             time_unit (str): The unit in which the time should be expressed. (default: "d")
             multiindex (bool): If False, the dataframe will have a nuclide names as indices. If True,
-                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: True)
+                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: False)
             squeeze (bool): If True and the return dictionnary is of length 1, the method will instead return the only
                             dataframe in the dictionnary. (default: True)
 
@@ -467,7 +467,7 @@ class DepletionResults:
         self,
         unit: str = "W",
         time_unit: str = "d",
-        multiindex: bool = True,
+        multiindex: bool = False,
         squeeze: bool = True,
     ) -> Union[dict[int, pd.DataFrame], pd.DataFrame]:
         """Buiding a decay heat dataframe for each material in the depletion problem.
@@ -478,7 +478,7 @@ class DepletionResults:
                         either unit are valid values for this argument. (default: "W")
             time_unit (str): The unit in which the time should be expressed. (default: "d")
             multiindex (bool): If False, the dataframe will have a nuclide names as indices. If True,
-                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: True)
+                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: False)
             squeeze (bool): If True and the return dictionnary is of length 1, the method will instead return the only
                             dataframe in the dictionnary. (default: True)
 
@@ -535,7 +535,7 @@ class DepletionResults:
                         Accepted values are : "atom", "mass", "activity" and "heat".
             time_unit (str): The unit in which the time should be expressed. (default: "d")
             multiindex (bool): If False, the dataframe will have a nuclide names as indices. If True,
-                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: True)
+                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: False)
             squeeze (bool): If True and the return dictionnary is of length 1, the method will instead return the only
                             dataframe in the dictionnary. (default: True)
 
@@ -564,7 +564,7 @@ class DepletionResults:
         self,
         filename: str,
         params: Union[Iterable[str], Iterable[Dict]],
-        multiindex: bool = True,
+        multiindex: bool = False,
         dconst: bool = True,
         decay_energy: bool = True,
         keffs: bool = True,
@@ -575,7 +575,7 @@ class DepletionResults:
             filename (str): The path to the file to write.
             params (Union[Iterable[str], Iterable[Dict]]): An iterable of the result sheet
             multiindex (bool): If False, the dataframe will have a nuclide names as indices. If True,
-                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: True)
+                                a pd.MultiIndex will be used using a Z A I hierarchy. (default: False)
             dconst (bool, optional): Wether to include a decay constants sheet. (defaults: False).
             decay_energy (bool, optional): Wether to include a decay energy sheet. (defaults: False).
             keffs (bool, optional): Wether to include a keffs sheet. (defaults: False).

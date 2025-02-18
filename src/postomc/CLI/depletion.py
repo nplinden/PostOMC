@@ -95,7 +95,6 @@ def to_console(file, split_nuclides, unit, time_unit, chain, material):
 
 def to_csv(file, split_nuclides, unit, time_unit, output, chain, material):
     res = DepletionResults(file, chain)
-    # materials = build_material_dict(file)
 
     dfs = res(unit, multiindex=split_nuclides, time_unit=time_unit, squeeze=False)
     if material is None and len(res.materials) == 1:

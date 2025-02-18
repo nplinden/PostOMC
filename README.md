@@ -95,5 +95,37 @@ Rg 272 0  0.0  0.000000e+00  0.000000e+00  0.000000e+00
 [3820 rows x 4 columns]
 ```
 
+In addition to isotopic composition, you can retrieve:
+
+* Reaction rates in $\mathrm{reaction}/s$ with `DepletionResults.rr(time_unit="s")`
+* $k_\mathrm{eff}$ using `DepletionResults.keffs(time_unit="s")`
+* Reactivity using `DepletionResults.rhos(time_unit="s")`
+
+Time units are always "day" by default.
+
 # CLI Usage
 
+Installing PostOMC also provides the `pomc` CLI command:
+
+```text
+Usage: pomc [OPTIONS]
+
+Options:
+  -f, --file TEXT         Path to the depletion_results.h5 file.
+  -s, --split-nuclides    Wether to create a nuclide indexed table or an
+                          (Element, A, I) indexed table.
+  -u, --unit TEXT         The desired unit.  [default: g/cm**3]
+  -t, --time-unit TEXT    The desired time unit.  [default: d]
+  -o, --output TEXT       Path to the output file.
+  -c, --chain TEXT        Path to a depletion chain file.
+  -m, --material INTEGER  Id of the desired material
+  --help                  Show this message and exit.
+```
+
+The CLI allows you to convert results files to CSV, Excel, on print their content in the console as a formatted dataframe.
+
+For instance to creating an Excel file in with a tab for each medium:
+
+```console
+pomc -f path/to/depletion_results.h5 -o mass.xlsx -u "g/cm**3"
+```

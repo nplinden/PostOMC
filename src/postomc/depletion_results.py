@@ -231,7 +231,7 @@ class DepletionResults:
         return self._power
 
     @property
-    def keffs(self) -> NDArray[ufloat]:
+    def keffs_array(self) -> NDArray[ufloat]:
         """The eigenvalues for each depletion step.
 
         Returns:
@@ -248,16 +248,16 @@ class DepletionResults:
         return self._keffs
 
     @property
-    def rhos(self) -> NDArray[ufloat]:
+    def rhos_array(self) -> NDArray[ufloat]:
         """The reactivity for each depletion step.
 
         Returns:
             NDArray[ufloat]: the reactivity at each step with associated sigma.
 
         """
-        return (self.keffs - 1) / self.keffs * 1e5
+        return (self.keffs_array - 1) / self.keffs_array * 1e5
 
-    def get_keffs(self, time_unit: str = "d") -> pd.DataFrame:
+    def keffs(self, time_unit: str = "d") -> pd.DataFrame:
         """The eigenvalues for each depletion step in a dataframe format.
 
         Args:
@@ -271,10 +271,12 @@ class DepletionResults:
         str_index = [round(i, ndigits=10) for i in self.time * converter]
         index = pd.Index(str_index, name=f"Time [{time_unit}]")
         cols = ("keff", "keff std. dev.")
-        data = np.array([unp.nominal_values(self.keffs), unp.std_devs(self.keffs)])
+        data = np.array(
+            [unp.nominal_values(self.keffs_array), unp.std_devs(self.keffs_array)]
+        )
         return pd.DataFrame(data=data.T, index=index, columns=cols)
 
-    def get_rhos(self, time_unit: str = "d") -> pd.DataFrame:
+    def rhos(self, time_unit: str = "d") -> pd.DataFrame:
         """The reactivity values for each depletion step in a dataframe format.
 
         Args:
@@ -284,7 +286,7 @@ class DepletionResults:
             pd.dataframe: reactivity at each step with associated sigma.
 
         """
-        rho = (self.keffs - 1) / self.keffs * 1e5
+        rho = (self.keffs_array - 1) / self.keffs_array * 1e5
         converter = (1 * ureg.s).to(time_unit).magnitude
         str_index = [round(i, ndigits=10) for i in self.time * converter]
         index = pd.Index(str_index, name=f"Time [{time_unit}]")
@@ -622,7 +624,7 @@ class DepletionResults:
                     )[matid]
                     df.to_excel(writer, sheet_name=sheet_name)
 
-    def get_reaction_rates(
+    def rr(
         self, time_unit: str = "d", squeeze: bool = True
     ) -> Union[dict[int, pd.DataFrame], pd.DataFrame]:
         """Buiding an reaction rate dataframe for each material in the depletion result file. Activity values are given

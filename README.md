@@ -59,8 +59,6 @@ res("Bq/cm**3")
 You can also set the time unit to whatever you prefer:
 
 ```python
-from postomc import DepletionResults
-res = DepletionResults("path/to/depletion_results.h5", chain="path/to/chain.xml")
 res("W", time_unit="s")
 ```
 
@@ -69,8 +67,6 @@ PostOMC uses [pint](https://pint.readthedocs.io/en/latest/index.html) for unit m
 We also define the `atom` unit as an alias for the `count` unit so you can do:
 
 ```python
-from postomc import DepletionResults
-res = DepletionResults("path/to/depletion_results.h5", chain="path/to/chain.xml")
 res("atom/beer_barrel", time_unit="fortnight")
 ```
 

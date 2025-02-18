@@ -58,7 +58,7 @@ from pathlib import Path
 def convert(file, split_nuclides, unit, time_unit, output, chain, material):
     if not h5py.is_hdf5(file):
         raise ValueError(f"{file} is not an HDF5 file")
-    if "depletion time" not in h5py.File(file).keys():
+    if h5py.File(file)["/"].attrs["filetype"] != b"depletion results":
         raise ValueError(f"{file} is not a depletion result file.")
 
     if output is None:

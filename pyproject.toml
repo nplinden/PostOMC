@@ -1,7 +1,7 @@
 [project]
 name = "postomc"
 version = "0.1.0"
-description = "Add your description here"
+description = "A package to post-treat OpenMC's `depletion_results.h5` files."
 readme = "README.md"
 authors = [{ name = "Nicolas Linden", email = "nicolas@nlinden.com" }]
 requires-python = ">=3.11"

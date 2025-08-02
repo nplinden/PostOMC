@@ -5,12 +5,7 @@ import h5py
 import pandas as pd
 from pathlib import Path
 
-@click.group()
-def cli():
-    """A simple CLI tool."""
-    pass
-
-@cli.command()
+@click.command()
 @click.argument("file", type=str)
 @click.option(
     "--split-nuclides",
@@ -62,22 +57,7 @@ def cli():
 )
 def convert(file, split_nuclides, unit, time_unit, output, chain, material):
     """
-    Converts depletion result data from an HDF5 file to various output formats.
-
-    Parameters:
-        file (str): Path to the HDF5 file containing depletion results.
-        split_nuclides (bool): Whether to split nuclide data in the output.
-        unit (str): Unit to use for the output data (e.g., 'atoms', 'grams').
-        time_unit (str): Unit for time representation in the output (e.g., 's', 'd').
-        output (str or None): Output file path. If None, prints to console. Supported formats: 'csv', 'xlsx'.
-        chain (str): Path to the depletion chain file.
-        material (str): Name of the material to extract data for.
-
-    Raises:
-        ValueError: If the input file is not a valid HDF5 depletion result file.
-
-    Outputs:
-        Writes the converted data to the specified output file or prints to the console.
+    Converts depletion_result.h5 files to various output formats.
     """
 
     if not h5py.is_hdf5(file):
@@ -102,7 +82,7 @@ def to_console(file, split_nuclides, unit, time_unit, chain, material):
     Parameters:
         file (str): Path to the depletion results file.
         split_nuclides (bool): Whether to split nuclides in the output DataFrame.
-        unit (str): Unit for the depletion results (e.g., 'atom', 'mass').
+        unit (str): Unit for the depletion results (e.g., 'W', 'g').
         time_unit (str): Unit for time (e.g., 's', 'd', 'a').
         chain (str): Path to the depletion chain file.
         material (str or None): Material ID to display. If None, displays all materials or the only material present.
@@ -141,7 +121,7 @@ def to_csv(file, split_nuclides, unit, time_unit, output, chain, material):
     Parameters:
         file (str): Path to the depletion results file.
         split_nuclides (bool): Whether to split nuclides in the output DataFrame's index.
-        unit (str): The unit to use for the results (e.g., 'atom', 'mass', etc.).
+        unit (str): The unit to use for the results (e.g., 'W', 'g', etc.).
         time_unit (str): The unit to use for time (e.g., 's', 'd', etc.).
         output (str): Path to the output CSV file.
         chain (str): Path to the depletion chain file.
@@ -259,7 +239,7 @@ def build_sheet_name(materials: Dict[int, str], material: int) -> str:
 
     Returns:
         str: A sanitized sheet name for the material, ensuring it does not exceed 31 characters
-             and does not contain forbidden characters (/, \, *, ?, [, ]) as per Excel's requirements.
+             and does not contain forbidden characters (/, \\, *, ?, [, ]) as per Excel's requirements.
              If the name is too long, returns a default name in the format "Material <material>".
     """
     name = materials.get(material, f"Material {material}")

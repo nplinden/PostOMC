@@ -1,6 +1,7 @@
 import click
 from postomc.CLI.convert import convert
 from postomc.CLI.info import info
+from postomc.CLI.plot import plot
 
 @click.group()
 def cli():
@@ -9,3 +10,4 @@ def cli():
 
 cli.add_command(convert)
 cli.add_command(info)
+cli.add_command(plot)

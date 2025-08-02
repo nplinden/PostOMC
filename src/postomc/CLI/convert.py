@@ -55,7 +55,7 @@ from pathlib import Path
     help="Id of the desired material",
     show_default=True,
 )
-def convert(file, split_nuclides, unit, time_unit, output, chain, material):
+def convert(file, split_nuclides, unit, time_unit, output, chain, material, sort):
     """
     Converts depletion_result.h5 files to various output formats.
     """

@@ -1,5 +1,6 @@
 import click
 from postomc.CLI.convert import convert
+from postomc.CLI.info import info
 
 @click.group()
 def cli():
@@ -7,3 +8,4 @@ def cli():
     pass
 
 cli.add_command(convert)
+cli.add_command(info)

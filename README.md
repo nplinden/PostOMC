@@ -64,7 +64,7 @@ You can also set the time unit to whatever you prefer:
 res("W", time_unit="s")
 ```
 
-PostOMC uses [pint](https://pint.readthedocs.io/en/latest/index.html) for unit management so any unit from the default `pint` definition file is valid as long as it is homogeneous to mass, number of atoms, power, activity, or the volumic counterparts.
+PostOMC uses [pint](https://pint.readthedocs.io/en/latest/index.html) for unit management so any unit from the default `pint` definition file is valid as long as it is homogeneous to mass, number of atoms, power, activity, or their volumic counterparts.
 
 We also define the `atom` unit as an alias for the `count` unit so you can do:
 
@@ -93,7 +93,7 @@ Rg 272 0  0.0  0.000000e+00  0.000000e+00  0.000000e+00
 [3820 rows x 4 columns]
 ```
 
-In addition to isotopic composition, you can retrieve:
+In addition to material composition you can retrieve:
 
 * Reaction rates in $\mathrm{reaction}/s$ with `DepletionResults.rr(time_unit="s")`
 * $k_\mathrm{eff}$ using `DepletionResults.keffs(time_unit="s")`
@@ -103,14 +103,17 @@ Time units are always "day" by default.
 
 # CLI Usage
 
-Installing PostOMC also provides the `pomc` CLI command:
+## Exporting data
+
+PostOMC provides the `pomc export` command to export the depletion result data to Excel, CSV, or to print its content to the terminal:
 
 ```text
-Usage: pomc [OPTIONS]
+Usage: pomc export [OPTIONS] FILE
+
+  Converts depletion_result.h5 files to various output formats.
 
 Options:
-  -f, --file TEXT         Path to the depletion_results.h5 file.
-  -s, --split-nuclides    Whether to create a nuclide indexed table or an
+  -s, --split-nuclides    Wether to create a nuclide indexed table or an
                           (Element, A, I) indexed table.
   -u, --unit TEXT         The desired unit.  [default: g/cm**3]
   -t, --time-unit TEXT    The desired time unit.  [default: d]
@@ -119,10 +122,9 @@ Options:
   -m, --material INTEGER  Id of the desired material
   --help                  Show this message and exit.
 ```
+### Examples
 
-The CLI allows you to convert results files to CSV, Excel, or print their content in the console as a formatted dataframe.
-
-For instance to create an Excel file with a tab for each medium:
+To create an Excel file with a tab for each medium:
 
 ```console
 pomc -f path/to/depletion_results.h5 -o mass.xlsx -u "g/cm**3"

@@ -1,4 +1,5 @@
 from typing import Dict
+import os
 import click
 from postomc import DepletionResults
 import h5py
@@ -55,7 +56,7 @@ from pathlib import Path
     help="Id of the desired material",
     show_default=True,
 )
-def export(file, split_nuclides, unit, time_unit, output, chain, material, sort):
+def export(file, split_nuclides, unit, time_unit, output, chain, material):
     """
     Converts depletion_result.h5 files to various output formats.
     """
@@ -64,6 +65,8 @@ def export(file, split_nuclides, unit, time_unit, output, chain, material, sort)
         raise ValueError(f"{file} is not an HDF5 file")
     if h5py.File(file)["/"].attrs["filetype"] != b"depletion results":
         raise ValueError(f"{file} is not a depletion result file.")
+    if chain is None:
+        chain = os.environ.get("OPENMC_CHAIN_FILE")
 
     if output is None:
         to_console(file, split_nuclides, unit, time_unit, chain, material)

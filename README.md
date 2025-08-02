@@ -103,6 +103,35 @@ Time units are always "day" by default.
 
 # CLI Usage
 
+PostOMC provide some CLI commands to perform common analysis tasks without having to create a python script.
+
+## Printing Information
+
+You can print a short summary of a `depletion_results.h5` file using the `pomc info` command:
+
+```console
+$ pomc info data/depletion_results.h5
+Depletion File       data/depletion_results.h5
+Summary File         data/summary.h5
+
+                  Depletion Steps                   
+┏━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Step # ┃ t(i) [days] ┃ t(i+1) [days] ┃ Power [W] ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ 1      │ 0.00        │ 30.00         │ 174.00    │
+│ 2      │ 30.00       │ 60.00         │ 174.00    │
+│ 3      │ 60.00       │ 90.00         │ 174.00    │
+│ 4      │ 90.00       │ 120.00        │ 174.00    │
+│ 5      │ 120.00      │ 120.00        │ 174.00    │
+└────────┴─────────────┴───────────────┴───────────┘
+                        Materials                        
+┏━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Id ┃ Name       ┃ Nuclides ┃ Atom Density [atom/b/cm] ┃
+┡━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 1  │ UO2 (2.4%) │ 4        │ 6.88e-02                 │
+└────┴────────────┴──────────┴──────────────────────────┘
+```
+
 ## Exporting data
 
 PostOMC provides the `pomc export` command to export the depletion result data to Excel, CSV, or to print its content to the terminal:
@@ -124,8 +153,40 @@ Options:
 ```
 ### Examples
 
-To create an Excel file with a tab for each medium:
+To create an Excel file with a tab for each material:
 
 ```console
-pomc -f path/to/depletion_results.h5 -o mass.xlsx -u "g/cm**3"
+$ pomc export path/to/depletion_results.h5 -o mass.xlsx -u "g/cm**3"
+```
+
+To create a CSV file of decay heat for a single material:
+
+```console
+$ pomc export data/depletion_results.h5 -o dh.csv -u "W" -m 1
+```
+ 
+By default PostOMC finds the required depletion chain using the `OPENMC_CHAIN_FILE` environment variable, to specify a depletion chain manually you can provide the `export` command with the `-c /path/to/chain/file` option.
+
+### Plotting data
+
+PostOMC provide the `pomc plot` command to quickly plot data from the `depletion_results.h5` file:
+
+```text
+Usage: pomc plot [OPTIONS] FILE
+
+Options:
+  -n, --nuclides TEXT
+  -u, --unit TEXT         The desired unit.  [default: g/cm**3]
+  -t, --time-unit TEXT    The desired time unit.  [default: d]
+  -m, --material INTEGER  Id of the desired material
+  -o, --output TEXT       Path to the output file.  [default: depletion.png]
+  -c, --chain TEXT        Path to a depletion chain file.
+  --help                  Show this message and exit.
+```
+### Examples
+
+To plot the mass density of U235 and Pu239 from the `depletion_results.h5` file in the pdf svg format:
+
+```console
+$ uv run pomc plot data/depletion_results.h5 -n "U235 Pu239" -o depletion.svg -u "g/cm**3"
 ```

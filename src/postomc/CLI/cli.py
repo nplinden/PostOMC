@@ -1,5 +1,5 @@
 import click
-from postomc.CLI.convert import export
+from postomc.CLI.export import export
 from postomc.CLI.info import info
 from postomc.CLI.plot import plot
 

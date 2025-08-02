@@ -1,4 +1,6 @@
-A class for reading OpenMC `depletion_results.h5` files.
+# PostOMC
+
+A Python package for reading and analyzing OpenMC `depletion_results.h5` files.
 
 # Installation
 
@@ -12,14 +14,14 @@ This installs the `postomc` python package as well as the `pomc` command line sc
 
 # API Usage
 
-PostMC revolves around the `DepletionResults` which can be instantiated from a `depletion_results.h5` file:
+PostOMC revolves around the `DepletionResults` class which can be instantiated from a `depletion_results.h5` file:
 
 ```python
 from postomc import DepletionResults
 res = DepletionResults("path/to/depletion_results.h5")
 ```
 
-The get the isotopic composition over time simply call the `DepletionResults` like a function, and provide the desired unit as argument:
+To get the isotopic composition over time simply call the `DepletionResults` like a function, and provide the desired unit as argument:
 
 ```python
 res("g/cm**3")
@@ -44,8 +46,8 @@ Rg272     0.0  0.000000e+00  0.000000e+00  0.000000e+00
 [3820 rows x 4 columns]
 ```
 
-If your result file contains multiples media, it will return a dictionnary mapping medium id to results dataframes.
-If you want to look at derived quantities like decay heat of activity, you'll need to provide an OpenMC decay chain to get decay constant and energy release values:
+If your result file contains multiple media, it will return a dictionary mapping medium id to results dataframes.
+If you want to look at derived quantities like decay heat or activity, you'll need to provide an OpenMC decay chain to get decay constant and energy release values:
 
 ```python
 from postomc import DepletionResults
@@ -108,7 +110,7 @@ Usage: pomc [OPTIONS]
 
 Options:
   -f, --file TEXT         Path to the depletion_results.h5 file.
-  -s, --split-nuclides    Wether to create a nuclide indexed table or an
+  -s, --split-nuclides    Whether to create a nuclide indexed table or an
                           (Element, A, I) indexed table.
   -u, --unit TEXT         The desired unit.  [default: g/cm**3]
   -t, --time-unit TEXT    The desired time unit.  [default: d]
@@ -118,9 +120,9 @@ Options:
   --help                  Show this message and exit.
 ```
 
-The CLI allows you to convert results files to CSV, Excel, on print their content in the console as a formatted dataframe.
+The CLI allows you to convert results files to CSV, Excel, or print their content in the console as a formatted dataframe.
 
-For instance to creating an Excel file in with a tab for each medium:
+For instance to create an Excel file with a tab for each medium:
 
 ```console
 pomc -f path/to/depletion_results.h5 -o mass.xlsx -u "g/cm**3"

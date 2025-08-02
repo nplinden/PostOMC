@@ -93,7 +93,7 @@ Rg 272 0  0.0  0.000000e+00  0.000000e+00  0.000000e+00
 [3820 rows x 4 columns]
 ```
 
-In addition to material composition you can retrieve:
+In addition to isotopic composition you can retrieve:
 
 * Reaction rates in $\mathrm{reaction}/s$ with `DepletionResults.rr(time_unit="s")`
 * $k_\mathrm{eff}$ using `DepletionResults.keffs(time_unit="s")`
@@ -103,7 +103,7 @@ Time units are always "day" by default.
 
 # CLI Usage
 
-PostOMC provide some CLI commands to perform common analysis tasks without having to create a python script.
+PostOMC provides some CLI commands to perform common analysis tasks without having to create a python script.
 
 ## Printing Information
 
@@ -142,7 +142,7 @@ Usage: pomc export [OPTIONS] FILE
   Converts depletion_result.h5 files to various output formats.
 
 Options:
-  -s, --split-nuclides    Wether to create a nuclide indexed table or an
+  -s, --split-nuclides    Whether to create a nuclide indexed table or an
                           (Element, A, I) indexed table.
   -u, --unit TEXT         The desired unit.  [default: g/cm**3]
   -t, --time-unit TEXT    The desired time unit.  [default: d]
@@ -169,7 +169,7 @@ By default PostOMC finds the required depletion chain using the `OPENMC_CHAIN_FI
 
 ### Plotting data
 
-PostOMC provide the `pomc plot` command to quickly plot data from the `depletion_results.h5` file:
+PostOMC provides the `pomc plot` command to quickly plot data from the `depletion_results.h5` file:
 
 ```text
 Usage: pomc plot [OPTIONS] FILE
@@ -185,7 +185,7 @@ Options:
 ```
 ### Examples
 
-To plot the mass density of U235 and Pu239 from the `depletion_results.h5` file in the pdf svg format:
+To plot the mass density of U235 and Pu239 from the `depletion_results.h5` file in SVG format:
 
 ```console
 $ uv run pomc plot data/depletion_results.h5 -n "U235 Pu239" -o depletion.svg -u "g/cm**3"

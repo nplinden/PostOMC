@@ -433,6 +433,8 @@ class DepletionResults:
             the squeeze parameter is True, returns a pd.DataFrame instead.
 
         """
+        if self.dconst is None:
+            raise ValueError("No chain file provided, cannot compute activity.")
         if ureg(unit).dimensionality == ureg("Bq").dimensionality:
             dfs = self.get_atoms(
                 unit="atoms", time_unit=time_unit, multiindex=False, squeeze=False
@@ -490,6 +492,8 @@ class DepletionResults:
             the squeeze parameter is True, returns a pd.DataFrame instead.
 
         """
+        if self.dconst is None or self.decay_energy is None:
+            raise ValueError("No chain file provided, cannot compute decay heat.")
         if ureg(unit).dimensionality == ureg("eV/s").dimensionality:
             dfs = self.get_atoms(
                 unit="atoms", time_unit=time_unit, multiindex=False, squeeze=False

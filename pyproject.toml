@@ -20,4 +20,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-pomc = "postomc.CLI.depletion:convert"
+pomc = "postomc.CLI.depletion:cli"

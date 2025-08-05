@@ -66,7 +66,10 @@ DIMENSIONS = {
     help="Path to a depletion chain file.",
     show_default=True,
 )
-def plot(file, nuclides, unit, time_unit, material, output, chain):
+@click.option('--logy', 'yscale', flag_value='log', default="linear")
+@click.option('--logx', 'xscale', flag_value='log', default="linear")
+def plot(file, nuclides, unit, time_unit, material, output, chain, yscale, xscale):
+    print(yscale, xscale)
     if not h5py.is_hdf5(file):
         raise ValueError(f"{file} is not an HDF5 file")
     if h5py.File(file)["/"].attrs["filetype"] != b"depletion results":
@@ -93,6 +96,8 @@ def plot(file, nuclides, unit, time_unit, material, output, chain):
             raise ValueError(f"Nuclide {nuclide} not found in the depletion results.")
         series = df.loc[nuclide]
         ax.plot(series.index, series.values, label=nuclide)
+    ax.set_xscale(xscale)
+    ax.set_yscale(yscale)
     ax.legend()
     ax.grid()
     ax.set_xlabel(f"Time [{time_unit}]")

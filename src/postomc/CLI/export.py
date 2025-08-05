@@ -6,6 +6,7 @@ import h5py
 import pandas as pd
 from pathlib import Path
 
+
 @click.command()
 @click.argument("file", type=str)
 @click.option(
